@@ -8,12 +8,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Socket;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.imgcodecs.Imgcodecs;
 
 /**
  * UDP client

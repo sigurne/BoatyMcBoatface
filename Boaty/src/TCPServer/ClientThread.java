@@ -1,7 +1,7 @@
 package TCPServer;
 
 import BoatyMcBoatface.MsgType;
-import GUI.VideoStreamFX;
+import GUI.VideoStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -148,7 +148,7 @@ class ClientThread implements Runnable {
         
         switch(fromClient){
             case MsgType.START_VIDEO_STREAM :
-                new Thread(new VideoStreamFX()).start();
+                new Thread(new VideoStream()).start();
                 msg = "Videostream started";
                 break;
         }

@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/GUI/VideoStreamFX.java</file>
-            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/GUI/VideoStream.java</file>
             <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/GUI/GUI.java</file>
-            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/GUI/NewFXMain1.java</file>
+            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/Main/Client.java</file>
+            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/GUI/ClientVideoStream.java</file>
+            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/Main/Main.java</file>
+            <file>file:/C:/Users/Sigurd/OneDrive%20-%20NTNU/Skule/3.året/Sanntid/BoatClient/src/Main/MsgType.java</file>
         </group>
     </open-files>
 </project-private>

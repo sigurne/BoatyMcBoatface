@@ -53,19 +53,21 @@ public class GUI extends Application {
         manualMode = true;
         this.primaryStage = primaryStage;
         root = new BorderPane();
-        
-        loadImage();
 
+        loadImage();
         createScene();
+
+        videoStream = new ClientVideoStream(imageView);
+        
 
         btnCam.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-              // new Thread(new ClientVideoStream(imageView)).start();
-               //
-               new Thread(new Client(msgType.START_VIDEO_STREAM)).start();
-               videoThread = new Thread(videoStream);
-               videoThread.start();
+                // new Thread(new ClientVideoStream(imageView)).start();
+                //
+                new Thread(new Client(msgType.START_VIDEO_STREAM)).start();
+                videoThread = new Thread(videoStream);
+                videoThread.start();
                 btnCam.setText("Camera running");
             }
         });
@@ -80,7 +82,7 @@ public class GUI extends Application {
                 }
                 else {
                     btnManAut.setText("Auto");
-                    
+
                 }
             }
         });
@@ -129,17 +131,16 @@ public class GUI extends Application {
     }
 
     /**
-     * 
+     *
      */
     private void loadImage() {
-       // Startup image
+        // Startup image
         File file = new File("C:/Users/Sigurd/OneDrive - NTNU/Skule/3.året/Sanntid/Boaty McBoatface prosjekt/boaty.jpg");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
-        
+
         // TEST image 
         File file2 = new File("C:\\Users\\Sigurd\\OneDrive - NTNU\\Skule\\3.året\\Bildebehandling\\Testbilder2\\cola1.png");
         image2 = new Image(file2.toURI().toString());
-        videoStream = new ClientVideoStream(imageView);
     }
 }

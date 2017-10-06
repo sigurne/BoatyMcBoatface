@@ -1,8 +1,7 @@
 package BoatyMcBoatface;
 
-import GUI.GUI;
+
 import TCPServer.Server;
-import javafx.application.Application;
 
 /**
  * Initiate the project, start server, open gui
@@ -35,7 +34,7 @@ public class Main {
     private void run(String[] args){
         //Starts server to handle connecting clients
         new Thread(server).start();
-        System.out.println("Started Json server");
+        System.out.println("Started server");
         
     }
 }

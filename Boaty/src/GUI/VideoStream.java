@@ -26,21 +26,20 @@ public class VideoStream implements Runnable {
     private int camToOpen;
     private DatagramSocket serverSocket;
     private byte[] sendData;
-    private int port;
+    private int UDPport;
     private InetAddress IpAddress;
-
     public VideoStream() {
-        camToOpen = 1;
-        port = 6000;
+        camToOpen = 0;
+        UDPport = 6000;
 
     }
 
     @Override
     public void run() {
         try {
-            IpAddress = InetAddress.getByName("192.168.0.100");
-            serverSocket = new DatagramSocket(6000);
-
+            //IpAddress = InetAddress.getByName("192.168.0.100");
+            IpAddress = InetAddress.getByName("127.0.0.1");
+            serverSocket = new DatagramSocket();
             // Open a videosource
             VideoCapture cam = new VideoCapture(camToOpen);
             Mat frame = new Mat();
@@ -53,11 +52,12 @@ public class VideoStream implements Runnable {
                 Imgcodecs.imencode(".png", frame, buffer);
                 buffer.toArray();
 
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IpAddress, port);
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IpAddress, UDPport);
                 serverSocket.send(sendPacket);
             }
         } catch (Exception ex) {
-            Logger.getLogger(VideoStream.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Shit2");
+           // Logger.getLogger(VideoStream.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

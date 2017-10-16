@@ -15,7 +15,8 @@ import Main.MsgType;
  */
 public class Client implements Runnable {
 
-    private static final String SERVER_NAME = "192.168.0.101";
+    //SNE: 192.168.0.100    Odroid: 192.168.0.101
+    private static final String SERVER_NAME = "192.168.0.10";
     private static final int PORT = 5000;
     public PrintStream outToServer = null;
     public BufferedReader inFromServer = null;

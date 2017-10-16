@@ -54,6 +54,7 @@ public class GUI extends Application {
         this.primaryStage = primaryStage;
         root = new BorderPane();
 
+        
         loadImage();
         createScene();
 
@@ -135,7 +136,7 @@ public class GUI extends Application {
      */
     private void loadImage() {
         // Startup image
-        File file = new File("C:/Users/Sigurd/OneDrive - NTNU/Skule/3.året/Sanntid/Boaty McBoatface prosjekt/boaty.jpg");
+        File file = new File("C:/Users/Sigurd/OneDrive - NTNU/Boaty McBoatface/boaty.jpg");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
 

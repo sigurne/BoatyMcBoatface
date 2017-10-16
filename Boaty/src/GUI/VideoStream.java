@@ -1,14 +1,8 @@
 package GUI;
 
-import java.io.ByteArrayInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -22,7 +16,6 @@ import org.opencv.videoio.VideoCapture;
  */
 public class VideoStream implements Runnable {
 
-    private ImageView imageView;
     private int camToOpen;
     private DatagramSocket serverSocket;
     private byte[] sendData;
@@ -31,7 +24,6 @@ public class VideoStream implements Runnable {
     public VideoStream() {
         camToOpen = 0;
         UDPport = 6000;
-
     }
 
     @Override
@@ -56,7 +48,6 @@ public class VideoStream implements Runnable {
                 serverSocket.send(sendPacket);
             }
         } catch (Exception ex) {
-            System.out.println("Shit2");
            // Logger.getLogger(VideoStream.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

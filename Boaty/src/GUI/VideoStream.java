@@ -3,10 +3,11 @@ package GUI;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import javafx.scene.image.ImageView;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
 /**
@@ -29,21 +30,26 @@ public class VideoStream implements Runnable {
     @Override
     public void run() {
         try {
-            //IpAddress = InetAddress.getByName("192.168.0.100");
-            IpAddress = InetAddress.getByName("127.0.0.1");
+            System.out.println("Start videostream");
+            IpAddress = InetAddress.getByName("192.168.0.100");
+           // IpAddress = InetAddress.getByName("127.0.0.1");
             serverSocket = new DatagramSocket();
             // Open a videosource
-            VideoCapture cam = new VideoCapture(camToOpen);
+          VideoCapture cam = new VideoCapture(camToOpen);
             Mat frame = new Mat();
             // 
-            while (cam.isOpened()) {
-                // resize før sending
+            while (true) {
+                // resize før sending?
                 cam.read(frame);
+           Size size  = new Size(200,100);
+            Imgproc.resize(frame, frame, size);
                 MatOfByte buffer = new MatOfByte();
                 // sende buffer
-                Imgcodecs.imencode(".png", frame, buffer);
-                buffer.toArray();
+                Imgcodecs.imencode(".jpg", frame, buffer);
+                System.out.println(buffer.size());
+                sendData = buffer.toArray();
 
+              
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IpAddress, UDPport);
                 serverSocket.send(sendPacket);
             }

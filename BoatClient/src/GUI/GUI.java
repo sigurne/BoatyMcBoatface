@@ -14,10 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.color;
 import javafx.stage.Stage;
 import org.opencv.core.Core;
-import static javafx.scene.paint.Color.color;
 
 /**
  * Creates the GUI. Handle input from user.
@@ -31,17 +29,16 @@ public class GUI extends Application {
     private ImageView imageView;
     private Button btnCam;
     private Button btnManAut;
-    private EventHandler eventHandler;
     private HBox hBox;
     private final String TITLE = "Boaty McBoatface";
     private boolean manualMode;
+    private boolean camRunning;
     private Thread videoThread;
     private ClientVideoStream videoStream;
     private Image image;
-    private Image image2;
-    private MsgType msgType;
 
     /**
+     * Launches the GUI
      *
      * @param primaryStage
      */
@@ -51,42 +48,14 @@ public class GUI extends Application {
         btnCam = new Button("Start camera");
         btnManAut = new Button("Manual");
         manualMode = true;
+        camRunning = false;
         this.primaryStage = primaryStage;
         root = new BorderPane();
 
-        
         loadImage();
         createScene();
-
-        videoStream = new ClientVideoStream(imageView);
-        
-
-        btnCam.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                // new Thread(new ClientVideoStream(imageView)).start();
-                //
-                new Thread(new Client(msgType.START_VIDEO_STREAM)).start();
-                videoThread = new Thread(videoStream);
-                videoThread.start();
-                btnCam.setText("Camera running");
-            }
-        });
-
-        btnManAut.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                manualMode = !manualMode;
-                if (manualMode) {
-                    btnManAut.setText("Manual");
-                    videoStream.terminate();
-                }
-                else {
-                    btnManAut.setText("Auto");
-
-                }
-            }
-        });
+        handleUI();
+        updateGUIStatus();
     }
 
     /**
@@ -95,9 +64,8 @@ public class GUI extends Application {
     private void createScene() {
         imageView.setFitWidth(400);
         imageView.setFitHeight(300);
-// 
+
         Scene scene = new Scene(rootScene(), 700, 600);
-        scene.setFill(Color.rgb(10, 45, 104));
 
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(scene);
@@ -132,16 +100,61 @@ public class GUI extends Application {
     }
 
     /**
-     *
+     * Load startup image
      */
     private void loadImage() {
         // Startup image
         File file = new File("C:/Users/Sigurd/OneDrive - NTNU/Boaty McBoatface/boaty.jpg");
         image = new Image(file.toURI().toString());
         imageView = new ImageView(image);
+    }
 
-        // TEST image 
-        File file2 = new File("C:\\Users\\Sigurd\\OneDrive - NTNU\\Skule\\3.året\\Bildebehandling\\Testbilder2\\cola1.png");
-        image2 = new Image(file2.toURI().toString());
+    /**
+     * Handle input from user
+     */
+    private void handleUI() {
+        // Start/stop camera
+        btnCam.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                if (!camRunning) {
+                    videoStream = new ClientVideoStream(imageView);
+                    videoThread = new Thread(videoStream);
+                    videoThread.start();
+                    new Thread(new Client(MsgType.START_VIDEO_STREAM)).start();
+                    btnCam.setText("Stop camera");
+                    camRunning = true;
+                }
+                else {
+                    btnCam.setText("Stop camera");
+                    try {
+                        videoStream.terminate();
+                    } catch (Exception ex) {
+                        System.out.println("Failed to stop camera");
+                    }
+                    camRunning = false;
+                }
+            }
+        });
+        // Toggle man/auto
+        btnManAut.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                manualMode = !manualMode;
+                if (manualMode) {
+                    btnManAut.setText("Manual");
+                }
+                else {
+                    btnManAut.setText("Auto");
+                }
+            }
+        });
+    }
+
+    /** 
+     * Update statuses in GUI
+     */
+    private void updateGUIStatus() {
+        
     }
 }

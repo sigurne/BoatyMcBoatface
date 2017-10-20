@@ -15,5 +15,7 @@ public class MsgType {
    
     //
     public static final int START_VIDEO_STREAM = 201; 
+    
+    public static final int IS_OBJ_DETECTED = 202; 
 
 }

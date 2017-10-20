@@ -34,11 +34,11 @@ public class ClientVideoStream implements Runnable {
      */
     @Override
     public void run() {
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[20000];
         try {
             UDPClient = new DatagramSocket(6000);
             while (!stop) {
-                receiveData = new byte[1024];
+                receiveData = new byte[20000];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 UDPClient.receive(receivePacket);
                 if (receivePacket.getLength() > 0) {
@@ -46,10 +46,10 @@ public class ClientVideoStream implements Runnable {
                     Image im = new Image(new ByteArrayInputStream(buffer));
                     imageView.setImage(im);
                 }
-                UDPClient.close();
             }
         } catch (IOException e) {
         }
+                UDPClient.close();
     }
 
     /**

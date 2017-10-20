@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  */
 public class Server implements Runnable {
 
-    public static final String SERVER_VERSION = "v0.1";
+    public static final String SERVER_VERSION = "v0.2";
     private static final int MAX_CLIENT_THREADS = 10;
     private static final int DEFAULT_SERVER_PORT = 5000;
     
@@ -30,7 +30,7 @@ public class Server implements Runnable {
         ServerSocket serverSocket;
         //Client socket object
         Socket clientSocket;
-        //Thread pool handler, limit set to 10 clients.
+        //Thread pool handler, clients limited.
         ExecutorService threadPool = Executors.newFixedThreadPool(MAX_CLIENT_THREADS);
         try {
             //Creating the server socket on port..>

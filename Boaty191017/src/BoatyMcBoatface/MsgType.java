@@ -14,6 +14,7 @@ public class MsgType {
     public static final int CMD_EXECUTED = 104; // Server returns requested sensor values
    
     //
-    public static final int START_VIDEO_STREAM = 201; 
-
+    public static final int START_VIDEO_STREAM = 201; // Start sending images to the GUI
+    
+    public static final int IS_OBJ_DETECTED = 202; 
 }

@@ -11,7 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Read input from client. Execute command based on the message.
+ * TCP client thread Read input from client. Execute command based on the
+ * message received.
  *
  * @author Sigurd N. Eikrem
  * @version 12-Sep-2017
@@ -22,9 +23,9 @@ class ClientThread implements Runnable {
     public PrintStream outToClient = null;
     public BufferedReader inFromClient = null;
     private String serverVersion;
-    private MsgType msgType;
 
     /**
+     * Constructor
      *
      * @param clientSocket socket to be handled
      * @param version Server version
@@ -42,17 +43,6 @@ class ClientThread implements Runnable {
     }
 
     /**
-     * Return a welcome message
-     *
-     * @return msg Return a welcome message
-     */
-    private String getWelcomeMessage() {
-        String msg;
-        msg = "Server version " + serverVersion;
-        return msg;
-    }
-
-    /**
      *
      */
     @Override
@@ -64,16 +54,14 @@ class ClientThread implements Runnable {
         //Process commands one by one
         //String to save input line to
         int line;
-
         while ((line = readLine()) != -1) {
             //Checking that the object was successfully created
             if (line != -1) {
-
                 //Execute command based on msgtype.. 
                 responseMsg = doCommandList(line);
 
-                //Sends response inFromClient
-                    this.sendResponse(responseMsg);
+                //Sends response out to client
+                this.sendResponse(responseMsg);
             }
             else {
                 System.out.println("Something wrong with parsing client input: "
@@ -82,6 +70,16 @@ class ClientThread implements Runnable {
         }
         // Terminate the connection
         shutdown();
+    }
+
+    /**
+     * Return a welcome message
+     *
+     * @return msg Return a welcome message
+     */
+    private String getWelcomeMessage() {
+        String msg = "Server version " + serverVersion;
+        return msg;
     }
 
     /**
@@ -145,22 +143,13 @@ class ClientThread implements Runnable {
     private String doCommandList(int fromClient) {
         String msg;
         msg = "Do command entered";
-        
-        switch(fromClient){
-            case MsgType.START_VIDEO_STREAM :
+
+        switch (fromClient) {
+            case MsgType.START_VIDEO_STREAM:
                 new Thread(new VideoStream()).start();
                 msg = "Videostream started";
                 break;
         }
-
-        /**
-         * ***Example*** //CHECKING WHAT COMMAND IN MSG TYPE.. UPDATING NEW X
-         * VALUE if (fromClient.getType() == MsgType.UPDATE_ROTATION) { if
-         * (argumentList != null && argumentList.get(0) != null) {
-         * Values.BaseValueToPLS = argumentList.get(0); } else {
-         * System.out.println("Arguments for specified " + fromClient.getType()
-         * + " was wrong"); } }
-         */
         return msg;
     }
 }

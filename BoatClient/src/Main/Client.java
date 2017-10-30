@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import Main.MsgType;
 
 /**
  * TCP client
@@ -21,12 +20,8 @@ public class Client implements Runnable {
     public PrintStream outToServer = null;
     public BufferedReader inFromServer = null;
     private int msgType = -1;
-    
-    public Client(){
-        
-    }
-    
-    public Client(int msgType){
+
+    public Client(int msgType) {
         this.msgType = msgType;
     }
 
@@ -36,16 +31,15 @@ public class Client implements Runnable {
     @Override
     public void run() {
         String inputLine;
-
         try {
             //Connecting
             System.out.println("Connecting to " + SERVER_NAME + " on port " + PORT);
             Socket client = new Socket(SERVER_NAME, PORT);
             System.out.println("Just connected to " + client.getRemoteSocketAddress());
-            
+
             outToServer = new PrintStream(client.getOutputStream(), true);
-            if (msgType != -1){
-            outToServer.println(msgType);
+            if (msgType != -1) {
+                outToServer.println(msgType);
             }
             inFromServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
             while ((inputLine = readLine()) != null) {

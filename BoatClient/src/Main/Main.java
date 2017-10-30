@@ -11,9 +11,7 @@ import org.opencv.core.Core;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        // new Thread(new Client()).start();
-        //Open GUI      
+    public static void main(String[] args) {   
         Application.launch(GUI.class, args);
         //Load OpenCV library        
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);

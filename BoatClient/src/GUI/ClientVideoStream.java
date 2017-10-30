@@ -1,11 +1,7 @@
 package GUI;
 
-import Main.MsgType;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import javafx.scene.image.Image;
@@ -21,7 +17,6 @@ public class ClientVideoStream implements Runnable {
 
     private DatagramSocket UDPClient;
     private byte[] receiveData;
-    private BufferedReader inFromServer = null;
     private boolean stop = false;
     private ImageView imageView;
 
@@ -30,7 +25,7 @@ public class ClientVideoStream implements Runnable {
     }
 
     /**
-     *
+     * Recive packets and update imageview in GUI
      */
     @Override
     public void run() {

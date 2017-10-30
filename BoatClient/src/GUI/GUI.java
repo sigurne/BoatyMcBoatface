@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.opencv.core.Core;
 
@@ -38,7 +37,7 @@ public class GUI extends Application {
     private Image image;
 
     /**
-     * Launches the GUI
+     * Launches the GUI. Startup is in manual and with camera not running
      *
      * @param primaryStage
      */
@@ -91,15 +90,6 @@ public class GUI extends Application {
     }
 
     /**
-     * Return TRUE in manual mode.
-     *
-     * @return
-     */
-    public boolean getManual() {
-        return manualMode;
-    }
-
-    /**
      * Load startup image
      */
     private void loadImage() {
@@ -140,21 +130,23 @@ public class GUI extends Application {
         btnManAut.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                manualMode = !manualMode;
                 if (manualMode) {
+                    new Thread(new Client(MsgType.MANUAL)).start();
                     btnManAut.setText("Manual");
                 }
                 else {
+                    new Thread(new Client(MsgType.AUTO)).start();
                     btnManAut.setText("Auto");
                 }
+                manualMode = !manualMode;
             }
         });
     }
 
-    /** 
+    /**
      * Update statuses in GUI
      */
     private void updateGUIStatus() {
-        
+
     }
 }
